@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package MyGrpcService;
+
+// Import any other dependencies (e.g., empty messages)
+import "google/protobuf/empty.proto";
+
+// Message types for requests and responses
+message AddSongRequest {
+  string name = 1;
+  string artist = 2;
+}
+
+message AddSongResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetSongByIdRequest {
+  int32 id = 1;
+}
+
+message GetSongResponse {
+  int32 id = 1;
+  string name = 2;
+  string artist = 3;
+}
+
+message GetAllSongsResponse {
+  repeated GetSongResponse songs = 1;
+}
+
+message UpdateSongRequest {
+  int32 id = 1;
+  string name = 2;
+  string artist = 3;
+}
+
+message UpdateSongResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message DeleteSongRequest {
+  int32 id = 1;
+}
+
+message DeleteSongResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Service definition for SongService
+service SongService {
+  rpc AddSong(AddSongRequest) returns (AddSongResponse);
+  rpc GetSongById(GetSongByIdRequest) returns (GetSongResponse);
+  rpc GetAllSongs(google.protobuf.Empty) returns (GetAllSongsResponse);
+  rpc UpdateSong(UpdateSongRequest) returns (UpdateSongResponse);
+  rpc DeleteSong(DeleteSongRequest) returns (DeleteSongResponse);
+}
